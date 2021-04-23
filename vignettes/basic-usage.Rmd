@@ -1,0 +1,55 @@
+---
+title: "Gráficos de distritos agrupados"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Gráficos de distritos agrupados}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(perumapas)
+library(dplyr)
+library(ggplot2)
+library(sf)
+```
+
+Si bien, `perumapas` permite obtener gráficos de resumen a nivel distrital, es posible utilizar el paquete `sf` para obtener niveles más altos de agregación. Tomemos en cuenta el caso de la región Áncash. Si quisiéramos obtener un gráfico con todos sus distritos utilizaríamos el siguiente código.
+
+```{r}
+mapa_distrital %>% 
+  filter(departamento == "ANCASH") %>% 
+  ggplot() +
+  geom_sf()
+```
+
+Para obtener el gráfico con nivel de resumen provincial, es necesario obtener la *unión* de todas las geometrías correspondientes a cada provincia. Para ello, agrupamos por departamento y provincia, y hacemos uso de `st_union()`. Por cada provincia, recibiremos un mensaje aclarando que `st_union()` realiza el cálculo asumiendo que las coordenadas de las geometrías son planas.
+
+```{r}
+mapa_distrital %>% 
+  filter(departamento == "ANCASH") %>% 
+  group_by(departamento, provincia) %>% 
+  summarise(geometry = st_union(geometry)) %>% 
+  ungroup() %>% 
+  ggplot() +
+  geom_sf()
+```
+
+Para un resumen departamental, el único cambio es realizar el agrupamiento a nivel de departamento.
+
+```{r}
+mapa_distrital %>% 
+  filter(departamento == "ANCASH") %>% 
+  group_by(departamento) %>% 
+  summarise(geometry = st_union(geometry)) %>% 
+  ungroup() %>% 
+  ggplot() +
+  geom_sf()
+```

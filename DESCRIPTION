@@ -1,0 +1,25 @@
+Package: perumapas
+Title: Mapa del Perú a nivel distrital
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Samuel",
+           family = "Calderon",
+           role = c("aut", "cre"),
+           email = "samuel.calderon@uarm.pe")
+Description: Contiene un set de datos que incluye metadata de distritos peruanos y sus geometrías.
+License: MIT + file LICENSE
+Suggests: 
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown,
+    sf,
+    dplyr,
+    ggplot2
+Config/testthat/edition: 3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)
+VignetteBuilder: knitr
