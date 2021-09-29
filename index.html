@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Mapa del Perú a nivel distrital">
-<meta property="og:description" content="Contiene un set de datos que incluye metadata de distritos peruanos y sus geometrías.">
+<meta property="og:description" content="Contiene sets de datos que incluye metadata de distritos, provincias y regiones peruanas y sus geometrías.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -83,13 +83,13 @@
 <a href="#perumapas" class="anchor"></a>perumapas</h1></div>
 <!-- badges: start -->
 
-<p>The goal of perumapas is to …</p>
+<p>The goal of <code>perumapas</code> is to have an easy way to draw maps with peruvian shapes.</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of perumapas from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<p>You can install the released version of perumapas from the <a href="https://calderonsamuel.r-universe.dev/">calderonsamuel r-universeCRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"perumapas"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"perumapas"</span>, repos <span class="op">=</span> <span class="st">'https://calderonsamuel.r-universe.dev'</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
@@ -97,7 +97,45 @@
 <p>This is a basic example which shows you how to solve a common problem:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://calderonsamuel.github.io/perumapas">perumapas</a></span><span class="op">)</span>
-<span class="co">## basic example code</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span> <span class="co"># for plotting</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># for filtering</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'dplyr'</span>
+<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     filter, lag</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span> <span class="co"># obligatorio!</span>
+<span class="co">#&gt; Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1</span></code></pre></div>
+<p>You can create maps easily.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_distrital</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">departamento</span> <span class="op">==</span> <span class="st">"LIMA"</span>, <span class="va">provincia</span> <span class="op">==</span> <span class="st">"LIMA"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-example-1.png" width="100%"></p>
+<p>You have the <em>ubigeo</em> field to easily join/merge with another dataset.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mapa_distrital</span>, <span class="fl">10</span><span class="op">)</span>
+<span class="co">#&gt; Simple feature collection with 10 features and 4 fields</span>
+<span class="co">#&gt; Geometry type: MULTIPOLYGON</span>
+<span class="co">#&gt; Dimension:     XY</span>
+<span class="co">#&gt; Bounding box:  xmin: -79.93157 ymin: -7.39816 xmax: -78.8421 ymax: -6.784193</span>
+<span class="co">#&gt; Geodetic CRS:  WGS 84</span>
+<span class="co">#&gt;    departamento  provincia     distrito ubigeo                       geometry</span>
+<span class="co">#&gt; 1     CAJAMARCA  CONTUMAZA     GUZMANGO 060504 MULTIPOLYGON (((-78.91578 -...</span>
+<span class="co">#&gt; 2     CAJAMARCA SAN MIGUEL     EL PRADO 061105 MULTIPOLYGON (((-79.01679 -...</span>
+<span class="co">#&gt; 3     CAJAMARCA SAN MIGUEL       NIEPOS 061109 MULTIPOLYGON (((-79.21691 -...</span>
+<span class="co">#&gt; 4     CAJAMARCA SAN MIGUEL SAN GREGORIO 061110 MULTIPOLYGON (((-79.08233 -...</span>
+<span class="co">#&gt; 5     CAJAMARCA  SAN PABLO     SAN LUIS 061203 MULTIPOLYGON (((-78.87623 -...</span>
+<span class="co">#&gt; 6    LAMBAYEQUE   CHICLAYO         ETEN 140103 MULTIPOLYGON (((-79.84212 -...</span>
+<span class="co">#&gt; 7    LAMBAYEQUE   CHICLAYO  LA VICTORIA 140106 MULTIPOLYGON (((-79.83314 -...</span>
+<span class="co">#&gt; 8    LAMBAYEQUE   CHICLAYO      LAGUNAS 140107 MULTIPOLYGON (((-79.66093 -...</span>
+<span class="co">#&gt; 9    LAMBAYEQUE   CHICLAYO      MONSEFU 140108 MULTIPOLYGON (((-79.78014 -...</span>
+<span class="co">#&gt; 10   LAMBAYEQUE   CHICLAYO   SANTA ROSA 140114 MULTIPOLYGON (((-79.89631 -...</span></code></pre></div>
+<p>To learn how to use <code>mapa_regional</code> and <code>mapa_provincial</code> see <code><a href="articles/basic-usage.html">vignette('basic-usage')</a></code>.</p>
 </div>
 </div>
   </div>
