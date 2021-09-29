@@ -24,7 +24,7 @@ The goal of `perumapas` is to have an easy way to draw maps with peruvian shapes
 
 ## Installation
 
-You can install the released version of perumapas from the [calderonsamuel r-universeCRAN](https://calderonsamuel.r-universe.dev/) with:
+You can install the released version of perumapas from the [calderonsamuel r-universe](https://calderonsamuel.r-universe.dev/) with:
 
 ``` r
 install.packages("perumapas", repos = 'https://calderonsamuel.r-universe.dev')

@@ -17,7 +17,7 @@ peruvian shapes.
 ## Installation
 
 You can install the released version of perumapas from the
-[calderonsamuel r-universeCRAN](https://calderonsamuel.r-universe.dev/)
+[calderonsamuel r-universe](https://calderonsamuel.r-universe.dev/)
 with:
 
 ``` r
