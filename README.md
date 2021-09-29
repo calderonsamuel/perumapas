@@ -29,7 +29,9 @@ install.packages("perumapas", repos = 'https://calderonsamuel.r-universe.dev')
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(perumapas)
+library(perumapas) # usar siempre junto con sf
+library(sf) # obligatorio!
+#> Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1
 library(ggplot2) # for plotting
 library(dplyr) # for filtering
 #> 
@@ -40,8 +42,6 @@ library(dplyr) # for filtering
 #> The following objects are masked from 'package:base':
 #> 
 #>     intersect, setdiff, setequal, union
-library(sf) # obligatorio!
-#> Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1
 ```
 
 You can create maps easily.

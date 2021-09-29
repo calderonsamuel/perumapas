@@ -35,10 +35,10 @@ install.packages("perumapas", repos = 'https://calderonsamuel.r-universe.dev')
 This is a basic example which shows you how to solve a common problem:
 
 ```{r}
-library(perumapas)
+library(perumapas) # usar siempre junto con sf
+library(sf) # obligatorio!
 library(ggplot2) # for plotting
 library(dplyr) # for filtering
-library(sf) # obligatorio!
 ```
 
 You can create maps easily.
