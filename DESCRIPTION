@@ -6,22 +6,23 @@ Authors@R:
            family = "Calderon",
            role = c("aut", "cre"),
            email = "samuel.calderon@uarm.pe")
-Description: Contiene un set de datos que incluye metadata de distritos peruanos y sus geometrías.
+Description: Contiene sets de datos que incluye metadata de distritos, provincias y regiones peruanas y sus geometrías.
 License: MIT + file LICENSE
 Suggests: 
     testthat (>= 3.0.0),
     knitr,
     rmarkdown,
-    sf,
     dplyr,
     ggplot2
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Depends: 
     R (>= 2.10)
 VignetteBuilder: knitr
 URL: https://calderonsamuel.github.io/perumapas, https://github.com/calderonsamuel/perumapas
 BugReports: https://github.com/calderonsamuel/perumapas/issues
+Imports: 
+    sf

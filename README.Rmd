@@ -20,23 +20,41 @@ knitr::opts_chunk$set(
 [![CRAN status](https://www.r-pkg.org/badges/version/perumapas)](https://CRAN.R-project.org/package=perumapas)
 <!-- badges: end -->
 
-The goal of perumapas is to ...
+The goal of `perumapas` is to have an easy way to draw maps with peruvian shapes.
 
 ## Installation
 
-You can install the released version of perumapas from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of perumapas from the [calderonsamuel r-universeCRAN](https://calderonsamuel.r-universe.dev/) with:
 
 ``` r
-install.packages("perumapas")
+install.packages("perumapas", repos = 'https://calderonsamuel.r-universe.dev')
 ```
 
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r example}
+```{r}
 library(perumapas)
-## basic example code
+library(ggplot2) # for plotting
+library(dplyr) # for filtering
+library(sf) # obligatorio!
 ```
 
+You can create maps easily.
 
+
+```{r example}
+mapa_distrital %>% 
+  filter(departamento == "LIMA", provincia == "LIMA") %>% 
+  ggplot() +
+  geom_sf()
+```
+
+You have the *ubigeo* field to easily join/merge with another dataset.
+
+```{r}
+head(mapa_distrital, 10)
+```
+
+To learn how to use `mapa_regional` and `mapa_provincial` see `vignette('basic-usage')`.

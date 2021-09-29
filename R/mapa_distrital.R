@@ -2,7 +2,7 @@
 #'
 #'A simple features dataset containing the limits of the 1874 peruvian districts. The data set was found in www.geogpsperu.com .
 #'
-#' @format A data frame with 1874 rows and 16 variables:
+#' @format A data frame with 1874 rows and 5 variables:
 #' \describe{
 #' \item{departamento}{Department name. First-level administrative division}
 #' \item{provincia}{Province name. Second-level administrative division}

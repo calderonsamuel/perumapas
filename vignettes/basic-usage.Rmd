@@ -30,26 +30,20 @@ mapa_distrital %>%
   geom_sf()
 ```
 
-Para obtener el gráfico con nivel de resumen provincial, es necesario obtener la *unión* de todas las geometrías correspondientes a cada provincia. Para ello, agrupamos por departamento y provincia, y hacemos uso de `st_union()`. Por cada provincia, recibiremos un mensaje aclarando que `st_union()` realiza el cálculo asumiendo que las coordenadas de las geometrías son planas.
+Para obtener el gráfico con nivel de resumen provincial, se puede utilizar `mapa_provincial`.
 
 ```{r}
-mapa_distrital %>% 
+mapa_provincial %>% 
   filter(departamento == "ANCASH") %>% 
-  group_by(departamento, provincia) %>% 
-  summarise(geometry = st_union(geometry)) %>% 
-  ungroup() %>% 
   ggplot() +
   geom_sf()
 ```
 
-Para un resumen departamental, el único cambio es realizar el agrupamiento a nivel de departamento.
+Para un gráfico departamental, usar `mapa_regional`.
 
 ```{r}
-mapa_distrital %>% 
+mapa_regional %>% 
   filter(departamento == "ANCASH") %>% 
-  group_by(departamento) %>% 
-  summarise(geometry = st_union(geometry)) %>% 
-  ungroup() %>% 
   ggplot() +
   geom_sf()
 ```

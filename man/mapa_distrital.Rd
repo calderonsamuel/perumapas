@@ -5,7 +5,7 @@
 \alias{mapa_distrital}
 \title{Mapa de límites distritales de Perú}
 \format{
-A data frame with 1874 rows and 16 variables:
+A data frame with 1874 rows and 5 variables:
 \describe{
 \item{departamento}{Department name. First-level administrative division}
 \item{provincia}{Province name. Second-level administrative division}
