@@ -96,19 +96,11 @@
 <a href="#example" class="anchor"></a>Example</h2>
 <p>This is a basic example which shows you how to solve a common problem:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://perumapas.samuelenrique.com">perumapas</a></span><span class="op">)</span> <span class="co"># usar siempre junto con sf</span>
+<code class="sourceCode R"><span class="co"># messages were removed</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://perumapas.samuelenrique.com">perumapas</a></span><span class="op">)</span> <span class="co"># usar siempre junto con sf</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span> <span class="co"># obligatorio!</span>
-<span class="co">#&gt; Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span> <span class="co"># for plotting</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># for filtering</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span> <span class="co"># for filtering</span></code></pre></div>
 <p>You can create maps easily.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mapa_distrital</span> <span class="op">%&gt;%</span> 
@@ -116,7 +108,7 @@
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="100%"></p>
-<p>You have the <em>ubigeo</em> field to easily join/merge with another dataset.</p>
+<p><code>mapa_distrital</code> has avaiable the <em>ubigeo</em> field to easily join/merge with another dataset.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">mapa_distrital</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="co">#&gt; Simple feature collection with 10 features and 4 fields</span>
@@ -136,6 +128,11 @@
 <span class="co">#&gt; 9    LAMBAYEQUE   CHICLAYO      MONSEFU 140108 MULTIPOLYGON (((-79.78014 -...</span>
 <span class="co">#&gt; 10   LAMBAYEQUE   CHICLAYO   SANTA ROSA 140114 MULTIPOLYGON (((-79.89631 -...</span></code></pre></div>
 <p>To learn how to use <code>mapa_regional</code> and <code>mapa_provincial</code> see <code><a href="articles/basic-usage.html">vignette('basic-usage')</a></code>.</p>
+</div>
+<div id="shapefiles-source" class="section level2">
+<h2 class="hasAnchor">
+<a href="#shapefiles-source" class="anchor"></a>Shapefiles source</h2>
+<p>The shapefiles for <code>mapa_distrital</code> were obtained from <a href="https://www.geogpsperu.com/2019/05/limite-distrital-actualizado-inei.html" class="uri">https://www.geogpsperu.com/2019/05/limite-distrital-actualizado-inei.html</a></p>
 </div>
 </div>
   </div>
