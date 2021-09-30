@@ -3,8 +3,8 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   basic-usage: basic-usage.html
-last_built: 2021-09-30T03:14Z
+last_built: 2021-09-30T15:01Z
 urls:
-  reference: http://perumapas.samuelenrique.com/reference
-  article: http://perumapas.samuelenrique.com/articles
+  reference: https://perumapas.samuelenrique.com/reference
+  article: https://perumapas.samuelenrique.com/articles
 
