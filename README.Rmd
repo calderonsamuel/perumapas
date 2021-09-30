@@ -34,7 +34,8 @@ install.packages("perumapas", repos = 'https://calderonsamuel.r-universe.dev')
 
 This is a basic example which shows you how to solve a common problem:
 
-```{r}
+```{r, message=FALSE}
+# messages were removed
 library(perumapas) # usar siempre junto con sf
 library(sf) # obligatorio!
 library(ggplot2) # for plotting
@@ -51,10 +52,14 @@ mapa_distrital %>%
   geom_sf()
 ```
 
-You have the *ubigeo* field to easily join/merge with another dataset.
+`mapa_distrital` has avaiable the *ubigeo* field to easily join/merge with another dataset.
 
 ```{r}
 head(mapa_distrital, 10)
 ```
 
 To learn how to use `mapa_regional` and `mapa_provincial` see `vignette('basic-usage')`.
+
+## Shapefiles source
+
+The shapefiles for `mapa_distrital` were obtained from <https://www.geogpsperu.com/2019/05/limite-distrital-actualizado-inei.html>

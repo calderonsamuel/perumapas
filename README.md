@@ -29,19 +29,11 @@ install.packages("perumapas", repos = 'https://calderonsamuel.r-universe.dev')
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
+# messages were removed
 library(perumapas) # usar siempre junto con sf
 library(sf) # obligatorio!
-#> Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1
 library(ggplot2) # for plotting
 library(dplyr) # for filtering
-#> 
-#> Attaching package: 'dplyr'
-#> The following objects are masked from 'package:stats':
-#> 
-#>     filter, lag
-#> The following objects are masked from 'package:base':
-#> 
-#>     intersect, setdiff, setequal, union
 ```
 
 You can create maps easily.
@@ -55,7 +47,8 @@ mapa_distrital %>%
 
 <img src="man/figures/README-example-1.png" width="100%" />
 
-You have the *ubigeo* field to easily join/merge with another dataset.
+`mapa_distrital` has avaiable the *ubigeo* field to easily join/merge
+with another dataset.
 
 ``` r
 head(mapa_distrital, 10)
@@ -79,3 +72,8 @@ head(mapa_distrital, 10)
 
 To learn how to use `mapa_regional` and `mapa_provincial` see
 `vignette('basic-usage')`.
+
+## Shapefiles source
+
+The shapefiles for `mapa_distrital` were obtained from
+<https://www.geogpsperu.com/2019/05/limite-distrital-actualizado-inei.html>
