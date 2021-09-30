@@ -22,7 +22,7 @@ RoxygenNote: 7.1.2
 Depends: 
     R (>= 2.10)
 VignetteBuilder: knitr
-URL: http://perumapas.samuelenrique.com, https://github.com/calderonsamuel/perumapas
+URL: https://perumapas.samuelenrique.com, https://github.com/calderonsamuel/perumapas
 BugReports: https://github.com/calderonsamuel/perumapas/issues
 Imports: 
     sf
