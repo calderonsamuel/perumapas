@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # Cargar `perumapas`
 
-El paquete `perumapas` contiene tres conjuntos de datos con las geometrías necesarias para dibuajr mapas de al división política administrativa del Perú a nivel distrital, provincial y regional. Para poder usar estos mapas, es necesario usar al mismo tiempo el paquete `sf`, que permite manipular las geometrías en formato *simple features*.
+El paquete `perumapas` contiene tres conjuntos de datos con las geometrías necesarias para dibujar mapas de al división política administrativa del Perú a nivel distrital, provincial y regional. Para poder usar estos mapas, es necesario usar al mismo tiempo el paquete `sf`, que permite manipular las geometrías en formato *simple features*.
 
 ```{r setup, message=FALSE}
 library(perumapas)
