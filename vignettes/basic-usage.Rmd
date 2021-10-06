@@ -1,8 +1,8 @@
 ---
-title: "Gráficos de distritos agrupados"
+title: "Uso básico de los mapas"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Gráficos de distritos agrupados}
+  %\VignetteIndexEntry{Uso básico de los mapas}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,27 +14,60 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
+# Cargar `perumapas`
+
+El paquete `perumapas` contiene tres conjuntos de datos con las geometrías necesarias para dibuajr mapas de al división política administrativa del Perú a nivel distrital, provincial y regional. Para poder usar estos mapas, es necesario usar al mismo tiempo el paquete `sf`, que permite manipular las geometrías en formato *simple features*.
+
+```{r setup, message=FALSE}
 library(perumapas)
-library(dplyr)
-library(ggplot2)
-library(sf)
+library(sf) # obligatorio!
 ```
 
-Si bien, `perumapas` permite obtener gráficos de resumen a nivel distrital, es posible utilizar el paquete `sf` para obtener niveles más altos de agregación. Tomemos en cuenta el caso de la región Áncash. Si quisiéramos obtener un gráfico con todos sus distritos utilizaríamos el siguiente código.
+Para fines de este documento, se carga también los paquets `dplyr` y `ggplot2` para la manipulación del conjunto de datos y creación de mapas, respectivamente. Se omiten los *messages* de carga.
+
+```{r, message=FALSE}
+library(dplyr)
+library(ggplot2)
+```
+
+# Mapas regionales, provinciales y distritales
+
+Para dibujar los mapas, usaremos la función `geom_sf()` del paquete `ggplot2`. Por defecto, usará la columna *geometry* del conjunto de datos para el dibujo.
+
+## Mapa regional
+
+El conjunto de datos `mapa_regional` contiene la información necesaria para elaborar mapas con las divisiones regionales.
 
 ```{r}
-mapa_distrital %>% 
-  filter(departamento == "ANCASH") %>% 
+mapa_regional %>% 
   ggplot() +
   geom_sf()
 ```
 
-Para obtener el gráfico con nivel de resumen provincial, se puede utilizar `mapa_provincial`.
+Para obtener el mapa de una región determinada, basta con agregar una línea de código de filtrado.
+
+```{r}
+mapa_regional %>% 
+  filter(departamento == "LIMA") %>% 
+  ggplot() +
+  geom_sf()
+```
+
+## Mapa provincial
+
+Para obtener el gráfico con nivel de resumen provincial, se puede utilizar `mapa_provincial`. Se debe tomar en cuenta que mientras mayor sea la cantidad de unidades (provincias), los recursos computacionales necesarios para generar el mapa aumentarán.
 
 ```{r}
 mapa_provincial %>% 
-  filter(departamento == "ANCASH") %>% 
+  ggplot() +
+  geom_sf()
+```
+
+Del mismo modo, si se requiere dibujar las provincias de alguna región en específico, basta con agregar una línea de filtrado.
+
+```{r}
+mapa_provincial %>% 
+  filter(departamento == "LIMA") %>% 
   ggplot() +
   geom_sf()
 ```
@@ -46,4 +79,104 @@ mapa_regional %>%
   filter(departamento == "ANCASH") %>% 
   ggplot() +
   geom_sf()
+```
+
+## Mapa distrital
+
+El nivel de detalle más alto se obtiene con el conjunto de datos `mapa_distrital`.
+
+```{r, cache=TRUE}
+mapa_distrital %>% 
+  ggplot() +
+  geom_sf()
+```
+
+Nuevamente, se debe tomar en cuenta los recursos computacionales necesarios para elaborar (renderizar) el mapa. Me tomó alrededor de 4 segundos con una CPU Ryzen 5 3600 6-Core 3.69GHz RAM 16GB GPU Rx 580 8GB.
+
+# Mapas personalizados
+
+## Distritos agrupados
+
+Una manera de personalizar los mapas es creando grupos de distritos o provincias según algún criterio. Por ejemplo, podemos obtener el mapa de Lima Metropolitana por zonas. Para ello, `perumapas` provee el conjunto de datos `zonas_lima`.
+
+```{r}
+zonas_lima
+```
+
+Al hacer un join/merge con `mapa_distrital` se puede recalcular las geometrías para dibujar el mapa por zonas.
+
+```{r}
+mapa_lima_zonas <- mapa_distrital %>% 
+  filter(departamento == "LIMA", provincia == "LIMA") %>% 
+  left_join(zonas_lima, by = "ubigeo") %>% 
+  group_by(zona) %>% 
+  summarise(geometry = st_union(geometry))
+```
+
+Una vez recalculadas las geometrías, el mapa se genera igual que en los casos anteriores.
+
+```{r}
+mapa_lima_zonas %>% 
+  ggplot() +
+  geom_sf()
+```
+
+## Color según criterio
+
+### Criterio categórico
+
+Es posible colorear los mapas según algún otro criterio. Por ejemplo, los distritos de Lima según la zona en la que se ubican. Para ello, nuevamente podemos hacer uso de `zonas_lima` y el atributo *fill* del mapa.
+
+```{r}
+mapa_distrital %>% 
+  filter(departamento == "LIMA", provincia == "LIMA") %>% 
+  left_join(zonas_lima, by = "ubigeo") %>% 
+  ggplot() +
+  geom_sf(aes(fill = zona))
+```
+
+### Criterio numérico
+
+Además de colorear por valores categóricos, es posible mapear el relleno del mapa según valores numéricos. Para este ejemplo se usará el mapa de pobreza de Lima 2018 del paquete `perupobreza2018`.
+
+```{r}
+library(perupobreza2018)
+
+pobreza_lima <- pobreza2018 %>% 
+  filter(region == "LIMA", provincia == "LIMA") %>% 
+  select(distrito, ubigeo, pobreza_monetaria)
+```
+
+Este conjunto de datos brinda, entre otras cosas, el porcentaje de población en condiciones de pobreza monetaria para cada distrito.
+
+```{r}
+pobreza_lima
+```
+
+Debido a que se cuenta con el ubigeo, es posible hacer el join/merge con los mapas.
+
+```{r}
+mapa_pobreza_lima <- mapa_distrital %>% 
+  filter(departamento == "LIMA", provincia == "LIMA") %>% 
+  left_join(pobreza_lima, by = "ubigeo")
+```
+
+Con esta información, es posible obtener el mapa de pobreza de Lima, los colores indican el porcentaje de pobreza monetaria.
+
+```{r}
+mapa_pobreza_lima %>% 
+  ggplot() +
+  geom_sf(aes(fill = pobreza_monetaria))
+```
+
+Por supuesto, también se puede crear una escala de colores manualmente usando `scale_fill_gradient2()`.
+
+```{r}
+mapa_pobreza_lima %>% 
+  ggplot() +
+  geom_sf(aes(fill = pobreza_monetaria)) +
+  scale_fill_gradient2(low = "green", 
+                       mid = "yellow", 
+                       high = "darkred", 
+                       midpoint = 10)
 ```

@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gráficos de distritos agrupados • perumapas</title>
+<title>Uso básico de los mapas • perumapas</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Gráficos de distritos agrupados">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Uso básico de los mapas">
 <meta property="og:description" content="perumapas">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -54,7 +54,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/basic-usage.html">Gráficos de distritos agrupados</a>
+      <a href="../articles/basic-usage.html">Uso básico de los mapas</a>
     </li>
   </ul>
 </li>
@@ -79,7 +79,7 @@
       </header><script src="basic-usage_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Gráficos de distritos agrupados</h1>
+      <h1 data-toc-skip>Uso básico de los mapas</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/calderonsamuel/perumapas/blob/master/vignettes/basic-usage.Rmd"><code>vignettes/basic-usage.Rmd</code></a></small>
@@ -89,46 +89,186 @@
 
     
     
+<div id="cargar-perumapas" class="section level1">
+<h1 class="hasAnchor">
+<a href="#cargar-perumapas" class="anchor"></a>Cargar <code>perumapas</code>
+</h1>
+<p>El paquete <code>perumapas</code> contiene tres conjuntos de datos con las geometrías necesarias para dibuajr mapas de al división política administrativa del Perú a nivel distrital, provincial y regional. Para poder usar estos mapas, es necesario usar al mismo tiempo el paquete <code>sf</code>, que permite manipular las geometrías en formato <em>simple features</em>.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://perumapas.samuelenrique.com">perumapas</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'dplyr'</span>
-<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter, lag</span>
-<span class="co">#&gt; The following objects are masked from 'package:base':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span>
-<span class="co">#&gt; Linking to GEOS 3.9.1, GDAL 3.2.1, PROJ 7.2.1</span></code></pre></div>
-<p>Si bien, <code>perumapas</code> permite obtener gráficos de resumen a nivel distrital, es posible utilizar el paquete <code>sf</code> para obtener niveles más altos de agregación. Tomemos en cuenta el caso de la región Áncash. Si quisiéramos obtener un gráfico con todos sus distritos utilizaríamos el siguiente código.</p>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/">sf</a></span><span class="op">)</span> <span class="co"># obligatorio!</span></code></pre></div>
+<p>Para fines de este documento, se carga también los paquets <code>dplyr</code> y <code>ggplot2</code> para la manipulación del conjunto de datos y creación de mapas, respectivamente. Se omiten los <em>messages</em> de carga.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mapa_distrital</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">departamento</span> <span class="op">==</span> <span class="st">"ANCASH"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="basic-usage_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-<p>Para obtener el gráfico con nivel de resumen provincial, se puede utilizar <code>mapa_provincial</code>.</p>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div id="mapas-regionales-provinciales-y-distritales" class="section level1">
+<h1 class="hasAnchor">
+<a href="#mapas-regionales-provinciales-y-distritales" class="anchor"></a>Mapas regionales, provinciales y distritales</h1>
+<p>Para dibujar los mapas, usaremos la función <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf()</a></code> del paquete <code>ggplot2</code>. Por defecto, usará la columna <em>geometry</em> del conjunto de datos para el dibujo.</p>
+<div id="mapa-regional" class="section level2">
+<h2 class="hasAnchor">
+<a href="#mapa-regional" class="anchor"></a>Mapa regional</h2>
+<p>El conjunto de datos <code>mapa_regional</code> contiene la información necesaria para elaborar mapas con las divisiones regionales.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mapa_provincial</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">departamento</span> <span class="op">==</span> <span class="st">"ANCASH"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+<code class="sourceCode R"><span class="va">mapa_regional</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="basic-usage_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<p>Para un gráfico departamental, usar <code>mapa_regional</code>.</p>
+<p>Para obtener el mapa de una región determinada, basta con agregar una línea de código de filtrado.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_regional</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">departamento</span> <span class="op">==</span> <span class="st">"LIMA"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="basic-usage_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+</div>
+<div id="mapa-provincial" class="section level2">
+<h2 class="hasAnchor">
+<a href="#mapa-provincial" class="anchor"></a>Mapa provincial</h2>
+<p>Para obtener el gráfico con nivel de resumen provincial, se puede utilizar <code>mapa_provincial</code>. Se debe tomar en cuenta que mientras mayor sea la cantidad de unidades (provincias), los recursos computacionales necesarios para generar el mapa aumentarán.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_provincial</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="basic-usage_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p>Del mismo modo, si se requiere dibujar las provincias de alguna región en específico, basta con agregar una línea de filtrado.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_provincial</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">departamento</span> <span class="op">==</span> <span class="st">"LIMA"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="basic-usage_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p>Para un gráfico departamental, usar <code>mapa_regional</code>.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mapa_regional</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">departamento</span> <span class="op">==</span> <span class="st">"ANCASH"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="basic-usage_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="basic-usage_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+</div>
+<div id="mapa-distrital" class="section level2">
+<h2 class="hasAnchor">
+<a href="#mapa-distrital" class="anchor"></a>Mapa distrital</h2>
+<p>El nivel de detalle más alto se obtiene con el conjunto de datos <code>mapa_distrital</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_distrital</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="basic-usage_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
+<p>Nuevamente, se debe tomar en cuenta los recursos computacionales necesarios para elaborar (renderizar) el mapa. Me tomó alrededor de 4 segundos con una CPU Ryzen 5 3600 6-Core 3.69GHz RAM 16GB GPU Rx 580 8GB.</p>
+</div>
+</div>
+<div id="mapas-personalizados" class="section level1">
+<h1 class="hasAnchor">
+<a href="#mapas-personalizados" class="anchor"></a>Mapas personalizados</h1>
+<div id="distritos-agrupados" class="section level2">
+<h2 class="hasAnchor">
+<a href="#distritos-agrupados" class="anchor"></a>Distritos agrupados</h2>
+<p>Una manera de personalizar los mapas es creando grupos de distritos o provincias según algún criterio. Por ejemplo, podemos obtener el mapa de Lima Metropolitana por zonas. Para ello, <code>perumapas</code> provee el conjunto de datos <code>zonas_lima</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">zonas_lima</span>
+<span class="co">#&gt; # A tibble: 43 x 3</span>
+<span class="co">#&gt;    distrito    ubigeo zona  </span>
+<span class="co">#&gt;    &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt; </span>
+<span class="co">#&gt;  1 LIMA        150101 Centro</span>
+<span class="co">#&gt;  2 ANCÓN       150102 Norte </span>
+<span class="co">#&gt;  3 ATE         150103 Este  </span>
+<span class="co">#&gt;  4 BARRANCO    150104 Centro</span>
+<span class="co">#&gt;  5 BREÑA       150105 Centro</span>
+<span class="co">#&gt;  6 CARABAYLLO  150106 Norte </span>
+<span class="co">#&gt;  7 CHACLACAYO  150107 Este  </span>
+<span class="co">#&gt;  8 CHORRILLOS  150108 Centro</span>
+<span class="co">#&gt;  9 CIENEGUILLA 150109 Este  </span>
+<span class="co">#&gt; 10 COMAS       150110 Norte </span>
+<span class="co">#&gt; # ... with 33 more rows</span></code></pre></div>
+<p>Al hacer un join/merge con <code>mapa_distrital</code> se puede recalcular las geometrías para dibujar el mapa por zonas.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_lima_zonas</span> <span class="op">&lt;-</span> <span class="va">mapa_distrital</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">departamento</span> <span class="op">==</span> <span class="st">"LIMA"</span>, <span class="va">provincia</span> <span class="op">==</span> <span class="st">"LIMA"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">zonas_lima</span>, by <span class="op">=</span> <span class="st">"ubigeo"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">zona</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarise</a></span><span class="op">(</span>geometry <span class="op">=</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/geos_combine.html">st_union</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Una vez recalculadas las geometrías, el mapa se genera igual que en los casos anteriores.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_lima_zonas</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="basic-usage_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+</div>
+<div id="color-según-criterio" class="section level2">
+<h2 class="hasAnchor">
+<a href="#color-seg%C3%BAn-criterio" class="anchor"></a>Color según criterio</h2>
+<div id="criterio-categórico" class="section level3">
+<h3 class="hasAnchor">
+<a href="#criterio-categ%C3%B3rico" class="anchor"></a>Criterio categórico</h3>
+<p>Es posible colorear los mapas según algún otro criterio. Por ejemplo, los distritos de Lima según la zona en la que se ubican. Para ello, nuevamente podemos hacer uso de <code>zonas_lima</code> y el atributo <em>fill</em> del mapa.</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_distrital</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">departamento</span> <span class="op">==</span> <span class="st">"LIMA"</span>, <span class="va">provincia</span> <span class="op">==</span> <span class="st">"LIMA"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">zonas_lima</span>, by <span class="op">=</span> <span class="st">"ubigeo"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">zona</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="basic-usage_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
+</div>
+<div id="criterio-numérico" class="section level3">
+<h3 class="hasAnchor">
+<a href="#criterio-num%C3%A9rico" class="anchor"></a>Criterio numérico</h3>
+<p>Además de colorear por valores categóricos, es posible mapear el relleno del mapa según valores numéricos. Para este ejemplo se usará el mapa de pobreza de Lima 2018 del paquete <code>perupobreza2018</code>.</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/calderonsamuel/perupobreza2018">perupobreza2018</a></span><span class="op">)</span>
+
+<span class="va">pobreza_lima</span> <span class="op">&lt;-</span> <span class="va">pobreza2018</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">region</span> <span class="op">==</span> <span class="st">"LIMA"</span>, <span class="va">provincia</span> <span class="op">==</span> <span class="st">"LIMA"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">distrito</span>, <span class="va">ubigeo</span>, <span class="va">pobreza_monetaria</span><span class="op">)</span></code></pre></div>
+<p>Este conjunto de datos brinda, entre otras cosas, el porcentaje de población en condiciones de pobreza monetaria para cada distrito.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pobreza_lima</span>
+<span class="co">#&gt; # A tibble: 43 x 3</span>
+<span class="co">#&gt;    distrito          ubigeo pobreza_monetaria</span>
+<span class="co">#&gt;    &lt;chr&gt;             &lt;chr&gt;              &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 PUCUSANA          150124              23.8</span>
+<span class="co">#&gt;  2 PUENTE PIEDRA     150125              22.7</span>
+<span class="co">#&gt;  3 SANTA ROSA        150139              22  </span>
+<span class="co">#&gt;  4 INDEPENDENCIA     150112              20.6</span>
+<span class="co">#&gt;  5 VILLA EL SALVADOR 150142              20.2</span>
+<span class="co">#&gt;  6 PACHACÁMAC        150123              20  </span>
+<span class="co">#&gt;  7 ANCÓN             150102              19.2</span>
+<span class="co">#&gt;  8 PUNTA HERMOSA     150126              19.2</span>
+<span class="co">#&gt;  9 CARABAYLLO        150106              19.2</span>
+<span class="co">#&gt; 10 LURÍN             150119              18.3</span>
+<span class="co">#&gt; # ... with 33 more rows</span></code></pre></div>
+<p>Debido a que se cuenta con el ubigeo, es posible hacer el join/merge con los mapas.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_pobreza_lima</span> <span class="op">&lt;-</span> <span class="va">mapa_distrital</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">departamento</span> <span class="op">==</span> <span class="st">"LIMA"</span>, <span class="va">provincia</span> <span class="op">==</span> <span class="st">"LIMA"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html">left_join</a></span><span class="op">(</span><span class="va">pobreza_lima</span>, by <span class="op">=</span> <span class="st">"ubigeo"</span><span class="op">)</span></code></pre></div>
+<p>Con esta información, es posible obtener el mapa de pobreza de Lima, los colores indican el porcentaje de pobreza monetaria.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_pobreza_lima</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">pobreza_monetaria</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="basic-usage_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
+<p>Por supuesto, también se puede crear una escala de colores manualmente usando <code><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient2()</a></code>.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">mapa_pobreza_lima</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">pobreza_monetaria</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_gradient.html">scale_fill_gradient2</a></span><span class="op">(</span>low <span class="op">=</span> <span class="st">"green"</span>, 
+                       mid <span class="op">=</span> <span class="st">"yellow"</span>, 
+                       high <span class="op">=</span> <span class="st">"darkred"</span>, 
+                       midpoint <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></code></pre></div>
+<p><img src="basic-usage_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
+</div>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 
-      </div>
+        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
+    </nav>
+</div>
 
 </div>
 
