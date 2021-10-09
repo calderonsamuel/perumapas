@@ -14,7 +14,7 @@ Suggests:
     rmarkdown,
     dplyr,
     ggplot2,
-    perupobreza2018
+    perupobreza2018 (>= 0.0.0.9000)
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
@@ -27,3 +27,5 @@ URL: https://perumapas.samuelenrique.com, https://github.com/calderonsamuel/peru
 BugReports: https://github.com/calderonsamuel/perumapas/issues
 Imports: 
     sf
+Remotes:  
+    calderonsamuel/perupobreza2018
